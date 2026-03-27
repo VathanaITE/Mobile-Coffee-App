@@ -47,7 +47,7 @@ fun CoffeeItem(coffee: Coffee, navController: NavController) {
                 contentDescription = coffee.name,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(130.dp)
+                    .height(140.dp)
                     .clip(RoundedCornerShape(16.dp)),
                 contentScale = ContentScale.Crop // Ensures image fills space beautifully
             )

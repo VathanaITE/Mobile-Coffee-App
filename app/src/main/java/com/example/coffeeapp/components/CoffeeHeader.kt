@@ -6,6 +6,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
@@ -27,6 +28,7 @@ import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.semantics.SemanticsProperties.ImeAction
@@ -34,6 +36,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.coffeeapp.AppUtil
 import com.example.coffeeapp.R
 import com.example.coffeeapp.viewModels.AuthViewModel
 import com.example.melodycoffeeapp.viewModels.CoffeeViewModel
@@ -43,48 +46,66 @@ import com.example.melodycoffeeapp.viewModels.CoffeeViewModel
 fun CoffeeHeader(userName: String="",greeting:String="",coffeeViewModel: CoffeeViewModel) {
     // Custom Colors
     val darkCoffee = Color(0xFF2E1505)
+    val context = LocalContext.current
+
     Box(
         modifier = Modifier
             .fillMaxWidth()
             .height(280.dp) // Total height including the overlapping search bar
     ) {
         // 1. Dark Background with Gradient
-        Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(240.dp)
-                .background(
-                    brush = Brush.verticalGradient(
-                        colors = listOf(darkCoffee, Color(0xFF4B2C20))
-                    ),
-                    shape = RoundedCornerShape(bottomStart = 24.dp, bottomEnd = 24.dp)
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(240.dp)
+                    .background(
+                        brush = Brush.verticalGradient(
+                            colors = listOf(darkCoffee, Color(0xFF4B2C20))
+                        ),
+                        shape = RoundedCornerShape(bottomStart = 24.dp, bottomEnd = 24.dp)
+                    )
+                    .padding(horizontal = 24.dp, vertical = 48.dp)
+            ) {
+
+                Row (modifier = Modifier.fillMaxWidth().padding(top = 16.dp),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically){
+                    Column {
+                        Text(
+                            text = greeting,
+                            color = Color.White,
+                            fontSize = 22.sp,
+                            fontWeight = FontWeight.SemiBold,
+                            letterSpacing = 0.5.sp
+                        )
+
+                        Text(
+                            text = userName,
+                            color = Color.White,
+                            fontSize = 22.sp,
+                            fontWeight = FontWeight.SemiBold,
+                            letterSpacing = 0.5.sp
+                        )
+                    }
+                    IconButton(
+                        onClick = {
+                            AppUtil.showToast(context, "Notification Clicked")
+                        },
+                    ) {
+                        Icon(
+                            imageVector = Icons.Default.Notifications,
+                            contentDescription = "Notifications",
+                            tint = Color.White
+                        )
+                    }
+                }
+                Spacer(modifier = Modifier.height(16.dp))
+                Text(
+                    text = "Ready for your daily caffeine fix?",
+                    color = Color.LightGray.copy(alpha = 0.7f),
+                    fontSize = 14.sp
                 )
-                .padding(horizontal = 24.dp, vertical = 40.dp)
-        ) {
-
-            Spacer(modifier = Modifier.height(16.dp))
-
-            // 3. Welcome Message
-            Text(
-                text = greeting,
-                color = Color.White,
-                fontSize = 22.sp,
-                fontWeight = FontWeight.SemiBold,
-                letterSpacing = 0.5.sp
-            )
-            Text(
-                text = userName,
-                color = Color.White,
-                fontSize = 22.sp,
-                fontWeight = FontWeight.SemiBold,
-                letterSpacing = 0.5.sp
-            )
-            Text(
-                text = "Ready for your daily caffeine fix?",
-                color = Color.LightGray.copy(alpha = 0.7f),
-                fontSize = 14.sp
-            )
-        }
+            }
 
         // 4. Overlapping Search Bar
         Surface(

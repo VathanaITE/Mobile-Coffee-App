@@ -59,113 +59,133 @@ fun CoffeeDetail(coffeeId: String, viewModel: CoffeeViewModel,navController: Nav
         Box(
             modifier = Modifier.fillMaxSize()
         ) {
-            Column(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .verticalScroll(rememberScrollState())
-                    .padding(start = 16.dp, end = 16.dp, bottom = 120.dp)
-            ) {
-
-                Row(modifier = Modifier.fillMaxWidth()) {
-                    IconButton(onClick ={ navController.popBackStack()}) {
-                        Icon(
-                            imageVector = Icons.Default.ArrowBack,
-                            contentDescription = "Back",
-                            modifier = Modifier.size(24.dp)
-                        )
-                    }
-                }
-                // 1. Image
-                AsyncImage(
-                    model = coffee.image,
-                    contentDescription = coffee.name,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(270.dp)
-                        .clip(RoundedCornerShape(16.dp)),
-                    contentScale = ContentScale.Crop
-                )
-
-                Spacer(modifier = Modifier.height(16.dp))
-
-                // 2. Name and Category
-                Text(coffee.name, style = MaterialTheme.typography.headlineMedium, fontWeight = FontWeight.Bold)
-                Text(coffee.category, color = Color.Gray)
-
-
-                Spacer(modifier = Modifier.height(24.dp))
-
-                // 2. Size Selector
-                Text("Size", fontWeight = FontWeight.Bold)
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(top = 12.dp),
-                    horizontalArrangement = Arrangement.spacedBy(12.dp)
-                ) {
-                    listOf("Small", "Medium", "Large").forEach { size ->
-                        SizeButton(
-                            label = size.first().toString(), // Shows S, M, or L
-                            isSelected = selectedSize == size,
-                            onClick = { selectedSize = size }
-                        )
-                    }
-                }
-
-                //3. sugar level
-                Spacer(modifier = Modifier.height(16.dp))
-                Text("Sugar Level %", fontWeight = FontWeight.Bold)
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(top = 8.dp),
-                    horizontalArrangement = Arrangement.spacedBy(8.dp),
-                    verticalAlignment = Alignment.CenterVertically
-                ){
-                    listOf(0,25,50,75,100).forEach { level ->
-                        SizeButton(
-                            label = level.toString(),
-                            isSelected = sugarLevel== level,
-                            onClick = { sugarLevel = level }
-                        )
-                    }
-
-                }
-
-
-                //4.quantity
-                Spacer(modifier = Modifier.height(16.dp))
-                Text("Quantity", fontWeight = FontWeight.Bold)
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(top = 8.dp),
-                    horizontalArrangement = Arrangement.spacedBy(8.dp),
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    IconButton(onClick = {
-                        if (quantity > 1) {
-                            quantity--
+            Column (modifier = Modifier.padding(start = 16.dp,end = 16.dp)){
+                Box(modifier = Modifier.fillMaxWidth()) {
+                    Surface(
+                        modifier = Modifier
+                            .align(Alignment.TopCenter)
+                            .fillMaxWidth(),
+                        color = Color.White
+                    ) {
+                        Row(modifier = Modifier.fillMaxWidth()) {
+                            IconButton(onClick = { navController.popBackStack() }) {
+                                Icon(
+                                    imageVector = Icons.Default.ArrowBack,
+                                    contentDescription = "Back",
+                                    modifier = Modifier.size(28.dp)
+                                )
+                            }
                         }
-                    }) {
-                        Text(text = "-", color = Color.Red, fontSize = 28.sp)
-                    }
-                    Text(text = quantity.toString(), color = Color.Black)
-                    IconButton(onClick = {
-                        quantity++
-                    }) {
-                        Text(text = "+", color = Color.Green, fontSize = 28.sp)
                     }
                 }
 
-                Spacer(modifier = Modifier.height(16.dp))
-                // 5. Description
-                Text("Description", fontWeight = FontWeight.Bold, style = MaterialTheme.typography.titleMedium)
-                Text(
-                    text = coffee.description,
-                    color = Color.Gray,
-                    modifier = Modifier.padding(top = 8.dp)
-                )
+                Column(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .verticalScroll(rememberScrollState())
+                        .padding(bottom = 120.dp)
+                ) {
+
+                    // 1. Image
+                    AsyncImage(
+                        model = coffee.image,
+                        contentDescription = coffee.name,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(270.dp)
+                            .clip(RoundedCornerShape(16.dp)),
+                        contentScale = ContentScale.Crop
+                    )
+
+                    Spacer(modifier = Modifier.height(16.dp))
+
+                    // 2. Name and Category
+                    Text(
+                        coffee.name,
+                        style = MaterialTheme.typography.headlineMedium,
+                        fontWeight = FontWeight.Bold
+                    )
+                    Text(coffee.category, color = Color.Gray)
+
+
+                    Spacer(modifier = Modifier.height(24.dp))
+
+                    // 2. Size Selector
+                    Text("Size", fontWeight = FontWeight.Bold)
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(top = 12.dp),
+                        horizontalArrangement = Arrangement.spacedBy(12.dp)
+                    ) {
+                        listOf("Small", "Medium", "Large").forEach { size ->
+                            SizeButton(
+                                label = size.first().toString(), // Shows S, M, or L
+                                isSelected = selectedSize == size,
+                                onClick = { selectedSize = size }
+                            )
+                        }
+                    }
+
+                    //3. sugar level
+                    Spacer(modifier = Modifier.height(16.dp))
+                    Text("Sugar Level %", fontWeight = FontWeight.Bold)
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(top = 8.dp),
+                        horizontalArrangement = Arrangement.spacedBy(8.dp),
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        listOf(0, 25, 50, 75, 100).forEach { level ->
+                            SizeButton(
+                                label = level.toString(),
+                                isSelected = sugarLevel == level,
+                                onClick = { sugarLevel = level }
+                            )
+                        }
+
+                    }
+
+
+                    //4.quantity
+                    Spacer(modifier = Modifier.height(16.dp))
+                    Text("Quantity", fontWeight = FontWeight.Bold)
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(top = 8.dp),
+                        horizontalArrangement = Arrangement.spacedBy(8.dp),
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        IconButton(onClick = {
+                            if (quantity > 1) {
+                                quantity--
+                            }
+                        }) {
+                            Text(text = "-", color = Color.Red, fontSize = 28.sp)
+                        }
+                        Text(text = quantity.toString(), color = Color.Black)
+                        IconButton(onClick = {
+                            quantity++
+                        }) {
+                            Text(text = "+", color = Color.Green, fontSize = 28.sp)
+                        }
+                    }
+
+                    Spacer(modifier = Modifier.height(16.dp))
+                    // 5. Description
+                    Text(
+                        "Description",
+                        fontWeight = FontWeight.Bold,
+                        style = MaterialTheme.typography.titleMedium
+                    )
+                    Text(
+                        text = coffee.description,
+                        color = Color.Gray,
+                        modifier = Modifier.padding(top = 8.dp)
+                    )
+                }
             }
 
             Surface(

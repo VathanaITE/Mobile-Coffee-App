@@ -88,7 +88,6 @@ fun CartScreen(cartViewModel: CartViewModel,navController: NavController) {
                             shape = RoundedCornerShape(16.dp),
                             colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFC67C4E)),
                             onClick = {
-                                println("cliked")
                                 navController.navigate("checkout")
                             }
                         ){

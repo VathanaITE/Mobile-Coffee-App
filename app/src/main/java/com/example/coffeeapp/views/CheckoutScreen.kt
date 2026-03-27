@@ -69,7 +69,7 @@ fun CheckoutScreen(cartViewModel: CartViewModel, navController: NavController) {
         }
         LazyColumn(modifier = Modifier.fillMaxWidth()) {
             items(cartViewModel.cartItems) { item ->
-                Text("${item.coffeeName} x${item.quantity} - $${total}")
+                Text("${item.coffeeName} x${item.quantity} - $${item.priceAtTime}")
             }
         }
         Spacer(modifier = Modifier.weight(1f))

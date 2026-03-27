@@ -35,13 +35,13 @@ fun MainScreen(){
     val currentRoute = navBackStackEntry?.destination?.route
     val isLogin = Firebase.auth.currentUser!=null
     val startDestination = if(isLogin) "home" else "login"
-    val noPadding = listOf<String>("login","home")
+    val noPadding = listOf<String>("login","home","order-history")
     var paddingValues: PaddingValues
 
     Scaffold(
         bottomBar = {
             if (currentRoute !in noNavRoute){
-                BottomNav(navController)
+                BottomNav(navController,cartViewModel)
             }
         }
     ) {innerPadding->
@@ -81,6 +81,9 @@ fun MainScreen(){
             }
             composable("success") {
                 SuccessScreen(navController)
+            }
+            composable("order-history") {
+                OrdersHistoryScreen(navController,cartViewModel)
             }
 
 

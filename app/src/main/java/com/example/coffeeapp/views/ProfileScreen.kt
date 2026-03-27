@@ -127,7 +127,10 @@ fun ProfileScreen(authViewModel: AuthViewModel, navController: NavController) {
                 )
             }
 
-            //ProfileInfoCard(label = "Languages")
+            ProfileInfoCard(label = "Order History",
+                onClick = {
+                    navController.navigate("order-history")
+                })
 
             Spacer(modifier = Modifier.weight(1f))
 

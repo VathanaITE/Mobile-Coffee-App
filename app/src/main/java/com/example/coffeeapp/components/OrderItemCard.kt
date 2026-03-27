@@ -163,7 +163,7 @@ fun OrderItemCard(order: CoffeeOrder, onCancelClick: () -> Unit,onCompleteQr: ()
                         }
                     }
                 }
-                "Completed" -> {
+                "Ready" -> {
                     Button(
                         onClick = onCompleteQr,
                         modifier = Modifier.fillMaxWidth().height(45.dp),

@@ -86,13 +86,24 @@ fun HomeScreen(viewModel: CoffeeViewModel, navController: NavController,authView
                 fontWeight = FontWeight.Bold,
                 modifier = Modifier.padding(start = 16.dp, top = 8.dp)
             )
-            LazyVerticalGrid(
-                columns = GridCells.Fixed(2),
-                contentPadding = PaddingValues(8.dp)
-            ) {
+            if (viewModel.filteredCoffeeList.isEmpty()) {
+                Box(modifier = Modifier.fillMaxSize(),
+                    contentAlignment = Alignment.Center) {
+                    Text(
+                        text = "No Coffee Found",
+                        fontSize = 20.sp,
+                        color = Color.Gray,
+                        fontWeight = FontWeight.SemiBold)
+                }
+            }else{
+                LazyVerticalGrid(
+                    columns = GridCells.Fixed(2),
+                    contentPadding = PaddingValues(8.dp)
+                ) {
 
-                items(viewModel.filteredCoffeeList) { coffee ->
-                    CoffeeItem(coffee,navController) // Your existing card component
+                    items(viewModel.filteredCoffeeList) { coffee ->
+                        CoffeeItem(coffee,navController) // Your existing card component
+                    }
                 }
             }
         }

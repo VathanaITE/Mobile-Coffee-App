@@ -7,15 +7,13 @@ import androidx.compose.ui.graphics.Color
 import androidx.lifecycle.ViewModel
 import com.example.coffeeapp.models.CoffeeOrder
 import com.example.coffeeapp.models.OrderItem
+import com.example.coffeeapp.models.OrderStatus
 import com.google.firebase.Firebase
 import com.google.firebase.auth.auth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
-import com.google.zxing.BarcodeFormat
-import com.google.zxing.MultiFormatWriter
-import com.google.zxing.WriterException
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
@@ -26,6 +24,10 @@ class CartViewModel : ViewModel() {
     private val uid = Firebase.auth.currentUser?.uid
     val orderListState = mutableStateListOf<CoffeeOrder>()
     var cartItems = mutableStateListOf<OrderItem>()
+
+
+    val cartItemsCounts: Int
+        get() = cartItems.sumOf { it.quantity }
 
     fun addToCart(item: OrderItem) {
         cartItems.add(item)
@@ -38,7 +40,7 @@ class CartViewModel : ViewModel() {
     }
 
     fun cancelOrder(orderId: String) {
-        db.child(orderId).child("status").setValue("Canceled")
+        db.child(orderId).child("status").setValue(OrderStatus.CANCELED.label)
     }
     fun deleteOrder(orderId: String) {
         db.child(orderId).removeValue()
@@ -96,7 +98,7 @@ class CartViewModel : ViewModel() {
             orderType = type,
             paymentMethod = paymentMethod,
             totalPrice = total,
-            status = "Preparing",
+            status = OrderStatus.PREPARING.label,
             timestamp = formatTimestamp(System.currentTimeMillis())
         )
         db.child(orderId).setValue(newOrder).addOnSuccessListener {
@@ -111,7 +113,8 @@ class CartViewModel : ViewModel() {
         // Choose your pattern:
         // "hh:mm a" -> 10:30 PM
         // "HH:mm"   -> 22:30 (24-hour format)
-        val formatter = SimpleDateFormat("hh:mm a", Locale.getDefault())
+        //val formatter = SimpleDateFormat("hh:mm a", Locale.getDefault())
+        val formatter = SimpleDateFormat("yyyy-MM-dd hh:mm a", Locale.getDefault())
         return formatter.format(date)
     }
 

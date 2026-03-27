@@ -31,6 +31,7 @@ import com.example.coffeeapp.R
 import com.example.coffeeapp.components.OrderItemCard
 import com.example.coffeeapp.components.QrDialog
 import com.example.coffeeapp.components.QrOrderGenerate
+import com.example.coffeeapp.models.OrderStatus
 import com.example.coffeeapp.viewModels.CartViewModel
 
 
@@ -38,7 +39,8 @@ import com.example.coffeeapp.viewModels.CartViewModel
 fun OrderScreen( cartViewModel: CartViewModel,navController: NavController) {
     val context = LocalContext.current
     var selectedTabIndex by  remember { mutableIntStateOf(0) }
-    val tabs = listOf("Preparing", "Completed","Canceled")
+    //val tabs = listOf("Preparing", "Ready","Canceled")
+    val tabs = listOf(OrderStatus.PREPARING.label,OrderStatus.READY.label,OrderStatus.CANCELED.label)
     val orders = cartViewModel.orderListState
     LaunchedEffect(selectedTabIndex) {
         cartViewModel.filterOrders(tabs[selectedTabIndex])
