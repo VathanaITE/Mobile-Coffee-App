@@ -2,11 +2,13 @@ package com.example.melodycoffeeapp.viewModels
 
 import android.content.Context
 import android.util.Log
+import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.core.graphics.values
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.room.util.copy
@@ -22,6 +24,7 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.firestore.firestore
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
+import kotlinx.coroutines.async
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
@@ -31,46 +34,24 @@ import kotlin.time.Duration.Companion.milliseconds
 class CoffeeViewModel(): ViewModel() {
     var isLoading by mutableStateOf(false)
     var categories by mutableStateOf<List<Category>>(emptyList())
-    var selectedCategory by mutableStateOf("") //key
+    var selectedCategory by mutableStateOf("all") //key
     var coffeeList by mutableStateOf<List<Coffee>>(emptyList())
     var searchQuery by mutableStateOf("")
-    private val db = FirebaseDatabase.getInstance().getReference("categories")
-
 
     init {
         fetchData()
     }
 
-    private fun fetchData(){
-        isLoading = true
-        try {
-        fetchCoffeeList()
-        fetchCategory()
-        } catch (e: Exception) {
-            e.printStackTrace()
-        }
-        isLoading = false
-    }
-    private fun fetchCategory() {
+    fun fetchData(){
+        isLoading= true
         viewModelScope.launch {
             try {
-                // Get the Map from Firebase
-                val categoryList = RetrofitObject.api.getCategories()
-                if (categoryList.isNotEmpty()){
-                    categories = categoryList.values.toList()
-                    selectedCategory = categories[0].id
-                }
-            } catch (e: Exception) {
-                e.printStackTrace()
-            }
-        }
-    }
-    private fun fetchCoffeeList() {
-        viewModelScope.launch {
-            try {
+                categories = RetrofitObject.api.getCategories().values.toList()
                 coffeeList = RetrofitObject.api.getCoffeeList()
-            } catch (e: Exception) {
+            }catch (e: Exception) {
                 e.printStackTrace()
+            } finally {
+                isLoading = false
             }
         }
     }
@@ -94,6 +75,4 @@ class CoffeeViewModel(): ViewModel() {
                     else -> coffeeFilter
                 }
             }
-
-
 }
