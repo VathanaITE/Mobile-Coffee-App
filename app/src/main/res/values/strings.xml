@@ -1,0 +1,31 @@
+<resources>
+
+    <string name="app_name">CoffeeApp</string>
+    <string name="select_language">Select Language</string>
+    <string name="english">English</string>
+    <string name="khmer">Khmer</string>
+    <string name="hello">Hello</string>
+    <string name="good_morning">Good Morning</string>
+    <string name="good_afternoon">Good Afternoon</string>
+    <string name="good_evening">Good Evening</string>
+    <string name="hot">Hot</string>
+    <string name="cold">Cold</string>
+    <string name="search_coffee">Search Coffee</string>
+    <string name="menu">Menu</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="login">Log In</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="home">Home</string>
+    <string name="cart">Cart</string>
+    <string name="order">Order</string>
+    <string name="sugar_level">Sugar Level</string>
+    <string name="size">Size</string>
+    <string name="quantity">Quantity</string>
+    <string name="price">Price</string>
+    <string name="total">Total</string>
+    <string name="add_to_cart">Add to Cart</string>
+    <string name="checkout">Checkout</string>
+    <string name="order_placed">Quantity</string>
+
+</resources>

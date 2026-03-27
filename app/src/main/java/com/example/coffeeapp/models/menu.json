@@ -1,0 +1,106 @@
+[
+  {
+    "id": 1,
+    "name": "Espresso",
+    "description": "Strong and bold concentrated coffee.",
+    "category": "Hot",
+    "image": "https://i.pinimg.com/736x/e6/66/27/e666274ae48540fa878bd49965fd36ba.jpg",
+    "sizes": { "Small": 2.50, "Medium": 3.00, "Large": 3.50 }
+  },
+  {
+    "id": 2,
+    "name": "Latte",
+    "description": "Espresso with steamed milk and a light layer of foam.",
+    "category": "Hot",
+    "image": "https://i.pinimg.com/1200x/c4/73/7e/c4737e013a673e196416210867f9b1f8.jpg",
+    "sizes": { "Small": 4.00, "Medium": 4.75, "Large": 5.50 }
+  },
+  {
+    "id": 3,
+    "name": "Cappuccino",
+    "description": "Equal parts espresso, steamed milk, and foam.",
+    "category": "Hot",
+    "image": "https://images.unsplash.com/photo-1534778101976-62847782c213?w=800",
+    "sizes": { "Small": 3.75, "Medium": 4.50, "Large": 5.25 }
+  },
+  {
+    "id": 4,
+    "name": "Americano",
+    "description": "Espresso shots topped with hot water.",
+    "category": "Hot",
+    "image": "https://i.pinimg.com/1200x/cb/48/db/cb48db04009801523739569e0f33cfc3.jpg",
+    "sizes": { "Small": 3.00, "Medium": 3.65, "Large": 4.25 }
+  },
+  {
+    "id": 5,
+    "name": "Mocha",
+    "description": "Espresso with chocolate syrup and steamed milk.",
+    "category": "Hot",
+    "image": "https://i.pinimg.com/736x/80/3c/24/803c245da7e21a30ae89da5a5435f850.jpg",
+    "sizes": { "Small": 4.50, "Medium": 5.25, "Large": 6.00 }
+  },
+  {
+    "id": 6,
+    "name": "Iced Coffee",
+    "description": "Freshly brewed coffee chilled and served over ice.",
+    "category": "Cold",
+    "image": "https://images.unsplash.com/photo-1517701604599-bb29b565090c?w=800",
+    "sizes": { "Small": 3.50, "Medium": 4.15, "Large": 4.75 }
+  },
+  {
+    "id": 7,
+    "name": "Cold Brew",
+    "description": "Steeped for 12+ hours for a smooth, low-acid taste.",
+    "category": "Cold",
+    "image": "https://images.unsplash.com/photo-1461023058943-07fcbe16d735?w=800",
+    "sizes": { "Small": 4.50, "Medium": 5.00, "Large": 5.50 }
+  },
+  {
+    "id": 8,
+    "name": "Caramel Frappe",
+    "description": "Blended coffee with caramel, milk, and ice.",
+    "category": "Cold",
+    "image": "https://images.unsplash.com/photo-1572490122747-3968b75cc699?w=800",
+    "sizes": { "Small": 5.25, "Medium": 6.00, "Large": 6.75 }
+  },
+  {
+    "id": 9,
+    "name": "Vienna Coffee",
+    "description": "Two shots of strong black espresso topped with whipped cream.",
+    "category": "Hot",
+    "image": "https://i.pinimg.com/1200x/03/59/aa/0359aa1f9990e45c11ae02872a792d38.jpg",
+    "sizes": { "Small": 4.75, "Medium": 5.40, "Large": 6.00 }
+  },
+  {
+    "id": 10,
+    "name": "Turkish Coffee",
+    "description": "Unfiltered coffee made with very finely ground beans.",
+    "category": "Hot",
+    "image": "https://i.pinimg.com/736x/e4/31/0a/e4310ad678aa1575cd9f6bbb6248ce83.jpg",
+    "sizes": { "Small": 3.50, "Medium": 4.00, "Large": 4.50 }
+  },
+  {
+    "id": 11,
+    "name": "Iced Latte",
+    "description": "Chilled milk and espresso poured over ice.",
+    "category": "Cold",
+    "image": "https://i.pinimg.com/736x/8c/79/14/8c7914fd444376555ab0de073f082144.jpg",
+    "sizes": { "Small": 4.25, "Medium": 4.90, "Large": 5.50 }
+  },
+  {
+    "id": 12,
+    "name": "Piccolo Latte",
+    "description": "A ristretto shot topped with warm, silky milk.",
+    "category": "Hot",
+    "image": "https://i.pinimg.com/1200x/29/e7/73/29e773540e3b65680e4d1b0ed5a96342.jpg",
+    "sizes": { "Small": 3.00, "Medium": 3.50, "Large": 4.00 }
+  },
+  {
+    "id": 13,
+    "name": "Mazagran",
+    "description": "The original iced coffee: strong coffee and lemon over ice.",
+    "category": "Cold",
+    "image": "https://i.pinimg.com/1200x/70/ee/8b/70ee8b9a14d8f4d1a2f0af57c91c5935.jpg",
+    "sizes": { "Small": 4.50, "Medium": 5.15, "Large": 5.75 }
+  }
+]
