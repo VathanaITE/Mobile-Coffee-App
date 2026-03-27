@@ -31,7 +31,7 @@ import kotlinx.coroutines.launch
 import okhttp3.internal.wait
 import kotlin.time.Duration.Companion.milliseconds
 
-class CoffeeViewModel(): ViewModel() {
+class CoffeeViewModel: ViewModel() {
     var isLoading by mutableStateOf(false)
     var categories by mutableStateOf<List<Category>>(emptyList())
     var selectedCategory by mutableStateOf("all") //key
