@@ -13,9 +13,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
-import androidx.compose.foundation.lazy.grid.items
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -35,12 +32,13 @@ import com.example.coffeeapp.components.CategoryTabs
 import com.example.coffeeapp.components.CoffeeHeader
 import com.example.coffeeapp.components.CoffeeItem
 import com.example.coffeeapp.viewModels.AuthViewModel
-import com.example.melodycoffeeapp.viewModels.CoffeeViewModel
+import com.example.coffeeapp.viewModels.CoffeeViewModel
+
 import java.time.LocalTime
 
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
-fun HomeScreen(viewModel: CoffeeViewModel, navController: NavController,authViewModel: AuthViewModel){
+fun HomeScreen(viewModel: CoffeeViewModel, navController: NavController, authViewModel: AuthViewModel){
     LaunchedEffect(Unit){
         authViewModel.fetchUserData()
     }
@@ -63,7 +61,7 @@ fun HomeScreen(viewModel: CoffeeViewModel, navController: NavController,authView
         modifier = Modifier.fillMaxSize()
             .background(Color.White)
     ) {
-        CoffeeHeader(userName,greeting,viewModel)
+        CoffeeHeader(userName,greeting,viewModel,navController)
         Spacer(modifier = Modifier.height(24.dp))
 
         if (viewModel.isLoading){
@@ -101,8 +99,8 @@ fun HomeScreen(viewModel: CoffeeViewModel, navController: NavController,authView
                     contentPadding = PaddingValues(8.dp)
                 ) {
 
-                    items(viewModel.filteredCoffeeList) { coffee ->
-                        CoffeeItem(coffee,navController) // Your existing card component
+                    items(viewModel.filteredCoffeeList.size) { index ->
+                        CoffeeItem(viewModel.filteredCoffeeList[index],navController) // Your existing card component
                     }
                 }
             }

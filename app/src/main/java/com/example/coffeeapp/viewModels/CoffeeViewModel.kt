@@ -1,4 +1,4 @@
-package com.example.melodycoffeeapp.viewModels
+package com.example.coffeeapp.viewModels
 
 import android.content.Context
 import android.util.Log
@@ -14,16 +14,9 @@ import androidx.lifecycle.viewModelScope
 import androidx.room.util.copy
 import com.example.coffeeapp.MainActivity
 import com.example.coffeeapp.models.Category
-import com.example.melodycoffeeapp.models.Coffee
-import com.example.melodycoffeeapp.models.RetrofitObject
-import com.google.firebase.Firebase
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.ValueEventListener
-import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.firestore.firestore
-import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
+import com.example.coffeeapp.models.Coffee
+import com.example.coffeeapp.models.RetrofitObject
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -39,16 +32,26 @@ class CoffeeViewModel: ViewModel() {
     var searchQuery by mutableStateOf("")
 
     init {
-        fetchData()
+        viewModelScope.launch (Dispatchers.IO){
+            // Move the heavy work to a background thread
+            fetchData()
+        }
     }
 
     fun fetchData(){
         isLoading= true
         viewModelScope.launch {
             try {
-                categories = RetrofitObject.api.getCategories().values.toList()
-                coffeeList = RetrofitObject.api.getCoffeeList()
-            }catch (e: Exception) {
+                // Launch both simultaneously
+                val categoriesDeferred = async { RetrofitObject.api.getCategories() }
+                val coffeeDeferred = async { RetrofitObject.api.getCoffeeList() }
+
+                // Wait for both to complete
+                categories = categoriesDeferred.await().values.toList()
+                coffeeList = coffeeDeferred.await()
+
+            }
+            catch (e: Exception) {
                 e.printStackTrace()
             } finally {
                 isLoading = false

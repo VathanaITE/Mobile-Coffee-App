@@ -17,9 +17,9 @@
         android:theme="@style/Theme.CoffeeApp">
 
         <!-- this is for Google map-->
-        <meta-data
-            android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyDZp_R-GRHmlfQUL053tTaQTn3xYLldsao" />
+<!--        <meta-data-->
+<!--            android:name="com.google.android.geo.API_KEY"-->
+<!--            android:value="AIzaSyDZp_R-GRHmlfQUL053tTaQTn3xYLldsao" />-->
 
         <activity
             android:name=".MainActivity"

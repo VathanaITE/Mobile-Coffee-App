@@ -44,8 +44,8 @@ dependencies {
     // Add the core zxing library for QR code generation logic
     implementation("com.google.zxing:core:3.5.3")
     //these 2 for Google map
-    implementation("com.google.maps.android:maps-compose:4.3.3")
-    implementation("com.google.android.gms:play-services-maps:18.2.0")
+   // implementation("com.google.maps.android:maps-compose:4.3.3")
+   // implementation("com.google.android.gms:play-services-maps:18.2.0")
 
     implementation("io.coil-kt:coil-compose:2.6.0")//loading image from internet
     // Retrofit
@@ -53,7 +53,8 @@ dependencies {
     // Gson Converter (for JSON parsing)
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
     implementation("androidx.navigation:navigation-compose:2.9.6")
-
+    implementation(platform("com.google.firebase:firebase-bom:33.1.0"))
+    implementation("androidx.core:core-splashscreen:1.0.1")
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
@@ -64,12 +65,9 @@ dependencies {
     implementation(libs.androidx.compose.ui.tooling.preview)
     implementation(libs.androidx.compose.material3)
     implementation(libs.firebase.database)
-    implementation(libs.androidx.navigation.runtime.ktx)
     implementation(libs.androidx.compose.foundation.layout)
-    implementation(libs.firebase.firestore)
     implementation(libs.androidx.room.ktx)
     implementation(libs.firebase.auth.ktx)
-    implementation(libs.firebase.auth)
     implementation(libs.androidx.compose.animation.core.lint)
     implementation(libs.firebase.messaging)
     testImplementation(libs.junit)

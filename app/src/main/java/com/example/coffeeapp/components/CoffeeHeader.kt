@@ -36,14 +36,16 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavController
 import com.example.coffeeapp.AppUtil
 import com.example.coffeeapp.R
 import com.example.coffeeapp.viewModels.AuthViewModel
-import com.example.melodycoffeeapp.viewModels.CoffeeViewModel
+import com.example.coffeeapp.viewModels.CoffeeViewModel
+
 
 
 @Composable
-fun CoffeeHeader(userName: String="",greeting:String="",coffeeViewModel: CoffeeViewModel) {
+fun CoffeeHeader(userName: String="",greeting:String="",coffeeViewModel: CoffeeViewModel,navController: NavController) {
     // Custom Colors
     val darkCoffee = Color(0xFF2E1505)
     val context = LocalContext.current
@@ -89,7 +91,7 @@ fun CoffeeHeader(userName: String="",greeting:String="",coffeeViewModel: CoffeeV
                     }
                     IconButton(
                         onClick = {
-                            AppUtil.showToast(context, "Notification Clicked")
+                            navController.navigate("notification")
                         },
                     ) {
                         Icon(

@@ -1,4 +1,4 @@
-package com.example.melodycoffeeapp.models
+package com.example.coffeeapp.models
 
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory

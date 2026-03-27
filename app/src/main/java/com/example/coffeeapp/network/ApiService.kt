@@ -1,6 +1,5 @@
-package com.example.melodycoffeeapp.models
+package com.example.coffeeapp.models
 
-import com.example.coffeeapp.models.Category
 import retrofit2.http.GET
 
 interface ApiService {

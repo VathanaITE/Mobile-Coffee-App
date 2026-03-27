@@ -22,13 +22,14 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.coffeeapp.models.Coffee
 import com.example.coffeeapp.models.OrderItem
 import com.example.coffeeapp.viewModels.CartViewModel
-import com.example.melodycoffeeapp.models.Coffee
+
 
 @Composable
-fun DetailBottomBar(price: Double,quantity: Int,cartViewModel: CartViewModel,
-                    coffee: Coffee,selectedSize: String,sugarLevel: Int) {
+fun DetailBottomBar(price: Double, quantity: Int, cartViewModel: CartViewModel,
+                    coffee: Coffee, selectedSize: String, sugarLevel: Int) {
     val context = LocalContext.current
     val total = price*quantity
     Surface(shadowElevation = 16.dp) {

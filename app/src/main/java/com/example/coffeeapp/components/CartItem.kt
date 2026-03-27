@@ -31,7 +31,6 @@ import coil.compose.AsyncImage
 import com.example.coffeeapp.R
 import com.example.coffeeapp.models.OrderItem
 import com.example.coffeeapp.viewModels.CartViewModel
-import com.example.melodycoffeeapp.models.Coffee
 
 
 @Composable

@@ -42,7 +42,8 @@ import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import com.example.coffeeapp.viewModels.CartViewModel
 import com.example.coffeeapp.components.DetailBottomBar
-import com.example.melodycoffeeapp.viewModels.CoffeeViewModel
+import com.example.coffeeapp.viewModels.CoffeeViewModel
+
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

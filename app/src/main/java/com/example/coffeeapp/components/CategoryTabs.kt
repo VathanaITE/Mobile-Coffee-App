@@ -15,7 +15,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.unit.dp
 import com.example.coffeeapp.R
-import com.example.melodycoffeeapp.viewModels.CoffeeViewModel
+import com.example.coffeeapp.viewModels.CoffeeViewModel
+
 
 @Composable
 fun CategoryTabs(viewModel: CoffeeViewModel) {

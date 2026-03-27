@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -17,7 +18,8 @@ import androidx.navigation.compose.rememberNavController
 import com.example.coffeeapp.viewModels.AuthViewModel
 import com.example.coffeeapp.viewModels.CartViewModel
 import com.example.coffeeapp.components.BottomNav
-import com.example.melodycoffeeapp.viewModels.CoffeeViewModel
+import com.example.coffeeapp.components.Notification
+import com.example.coffeeapp.viewModels.CoffeeViewModel
 import com.google.firebase.Firebase
 import com.google.firebase.auth.auth
 
@@ -29,13 +31,13 @@ fun MainScreen(){
     val cartViewModel: CartViewModel = viewModel()
     val navController = rememberNavController()
     val authViewModel: AuthViewModel = viewModel()
-    val noNavRoute = listOf<String>("login","signup","checkout","success")
+    val noNavRoute = listOf<String>("login","signup","checkout","success","order-history","notification")
     // 1. Get current destination
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentRoute = navBackStackEntry?.destination?.route
-    val isLogin = Firebase.auth.currentUser!=null
+    val isLogin = remember { Firebase.auth.currentUser!=null }
     val startDestination = if(isLogin) "home" else "login"
-    val noPadding = listOf<String>("login","home","order-history")
+    val noPadding =  listOf<String>("login","home","order-history","notification")
     var paddingValues: PaddingValues
 
     Scaffold(
@@ -84,6 +86,9 @@ fun MainScreen(){
             }
             composable("order-history") {
                 OrdersHistoryScreen(navController,cartViewModel)
+            }
+            composable("notification") {
+                Notification(navController)
             }
 
 

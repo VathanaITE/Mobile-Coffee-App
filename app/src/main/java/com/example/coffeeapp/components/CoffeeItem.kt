@@ -24,7 +24,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import com.example.coffeeapp.R
-import com.example.melodycoffeeapp.models.Coffee
+import com.example.coffeeapp.models.Coffee
 
 
 @Composable
