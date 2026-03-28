@@ -1,5 +1,7 @@
 package com.example.coffeeapp.models
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 
 
 data class CoffeeOrder(
@@ -13,8 +15,10 @@ data class CoffeeOrder(
     val timestamp: String = ""
 )
 
+@Entity(tableName = "cart_items")
 data class OrderItem(
-    val id: String = "",
+    @PrimaryKey
+    var id: String = "",
     val coffeeImage: String = "",
     val coffeeName: String = "",
     val size: String = "",

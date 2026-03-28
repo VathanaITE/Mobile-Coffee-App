@@ -1,39 +1,86 @@
 package com.example.coffeeapp.viewModels
 
-import android.graphics.Bitmap
+import android.app.Application
 import android.util.Log
 import androidx.compose.runtime.mutableStateListOf
-import androidx.compose.ui.graphics.Color
-import androidx.lifecycle.ViewModel
+import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.coffeeapp.models.CoffeeOrder
 import com.example.coffeeapp.models.OrderItem
 import com.example.coffeeapp.models.OrderStatus
+import com.example.coffeeapp.models.roomDb.CoffeeDao
+import com.example.coffeeapp.models.roomDb.CoffeeDatabase
 import com.google.firebase.Firebase
 import com.google.firebase.auth.auth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 
 
-class CartViewModel : ViewModel() {
+class CartViewModel(application: Application) : AndroidViewModel(application)  {
     private val db = FirebaseDatabase.getInstance().getReference("orders")
     private val uid = Firebase.auth.currentUser?.uid
     val orderListState = mutableStateListOf<CoffeeOrder>()
     var cartItems = mutableStateListOf<OrderItem>()
+    private val dbRoom by lazy { CoffeeDatabase.getDatabase(getApplication()) }
+    private val coffeeDao: CoffeeDao by lazy { dbRoom.coffeeDao() }
+
+    init {
+        loadItemOrdersRoomDb()
+    }
+
+    private fun loadItemOrdersRoomDb() {
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+                val savedItems = coffeeDao.getAllOrderItems()
+                withContext(Dispatchers.Main) {
+                    cartItems.clear()
+                    cartItems.addAll(savedItems)
+                    Log.d("CartViewModel", "Loaded ${savedItems.size} items from Room")
+                }
+            } catch (e: Exception) {
+                Log.e("CartViewModel", "Error loading from Room: ${e.message}")
+            }
+        }
+    }
 
 
     val cartItemsCounts: Int
         get() = cartItems.sumOf { it.quantity }
 
     fun addToCart(item: OrderItem) {
-        cartItems.add(item)
+        val id = db.push().key
+
+        viewModelScope.launch(Dispatchers.IO) {
+            // 1. Check if this specific item (same name, size, sugar) already exists in the list
+            val existingItem = cartItems.find { it.id == item.id }
+
+            if (existingItem != null) {
+                // 2. If it exists, increase the quantity
+                existingItem.quantity += item.quantity
+                coffeeDao.insertItem(existingItem) // Room updates the existing row
+            } else {
+                // 3. If it's a new coffee, add it to the database
+                item.id = id.toString()
+                coffeeDao.insertItem(item)
+            }
+            //update ui
+             cartItems.add(item)
+        }
     }
+
     fun removeFromCart(item: OrderItem) {
         cartItems.remove(item)
+        viewModelScope.launch{
+            coffeeDao.deleteItem(item)
+        }
     }
     fun getTotalPrice(): Double {
         return cartItems.sumOf { it.priceAtTime * it.quantity }
@@ -61,8 +108,9 @@ class CartViewModel : ViewModel() {
     }
 
     fun filterOrders(targetStatus: String){
+        val currentUid = uid ?: return
         // Step 1: Query for only this user's orders
-        val query = db.orderByChild("userId").equalTo(uid)
+        val query = db.orderByChild("userId").equalTo(currentUid)
 
         query.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
@@ -88,12 +136,12 @@ class CartViewModel : ViewModel() {
         })
     }
     fun placeOrder(items:List<OrderItem>,type: String,paymentMethod: String, total: Double, onSuccess: () -> Unit) {
-        val uid = Firebase.auth.currentUser?.uid ?: return
+        val currentUid = uid ?: return
         val orderId = db.push().key ?: "" // Generates a unique ID for the order
 
         val newOrder = CoffeeOrder(
             orderId = orderId,
-            userId = uid,
+            userId = currentUid,
             items = items,
             orderType = type,
             paymentMethod = paymentMethod,
@@ -105,6 +153,9 @@ class CartViewModel : ViewModel() {
             // IMPORTANT: Clear the cart after ordering!
             cartItems.clear()
             onSuccess()
+            viewModelScope.launch {
+                coffeeDao.clearCart()
+            }
         }
     }
     fun formatTimestamp(timestamp: Long): String {

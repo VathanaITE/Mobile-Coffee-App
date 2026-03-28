@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.google.gms.google.services)
+    alias(libs.plugins.ksp)
 }
 
 android {
@@ -36,9 +37,19 @@ android {
     buildFeatures {
         compose = true
     }
+    sourceSets{
+        getByName("main") {
+            kotlin.srcDir("build/generated/ksp/main/kotlin")
+        }
+    }
 }
 
 dependencies {
+    val roomVersion = "2.7.0-alpha11"
+
+    implementation("androidx.room:room-runtime:$roomVersion")
+    implementation("androidx.room:room-ktx:$roomVersion")
+    ksp("androidx.room:room-compiler:$roomVersion")
     //for send message from Firebase Cloud Messaging to device
 //    implementation("com.google.firebase:firebase-messaging-ktx")
     // Add the core zxing library for QR code generation logic
@@ -66,7 +77,6 @@ dependencies {
     implementation(libs.androidx.compose.material3)
     implementation(libs.firebase.database)
     implementation(libs.androidx.compose.foundation.layout)
-    implementation(libs.androidx.room.ktx)
     implementation(libs.firebase.auth.ktx)
     implementation(libs.androidx.compose.animation.core.lint)
     implementation(libs.firebase.messaging)
