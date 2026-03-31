@@ -61,21 +61,21 @@ class CoffeeViewModel: ViewModel() {
 
     // The filtered list based on the selection
     val filteredCoffeeList: List<Coffee>
-        get() =
-            if (searchQuery.isEmpty()) {
-                when (selectedCategory) {
-                    "all" -> coffeeList
-                    "hot" -> coffeeList.filter { it.category == "Hot" }
-                    "cold" -> coffeeList.filter { it.category == "Cold" }
-                    else -> coffeeList
-                }
-            }else{
-                val coffeeFilter = coffeeList.filter { it.name.contains(searchQuery, ignoreCase = true) }
-                when (selectedCategory) {
-                    "all" -> coffeeFilter
-                    "hot" -> coffeeFilter.filter { it.category == "Hot" }
-                    "cold" -> coffeeFilter.filter { it.category == "Cold" }
-                    else -> coffeeFilter
-                }
+        get() {
+            // 1. Filter by search query first
+            val searchResult = if (searchQuery.isEmpty()) {
+                coffeeList
+            } else {
+                coffeeList.filter { it.name.contains(searchQuery, ignoreCase = true) }
             }
+
+            // 2. Filter by category dynamically
+            return if (selectedCategory.equals("all", ignoreCase = true)) {
+                searchResult
+            } else {
+                // This replaces the 'when' block.
+                // It matches the coffee's category against the selected one automatically.
+                searchResult.filter { it.category.equals(selectedCategory, ignoreCase = true) }
+            }
+        }
 }

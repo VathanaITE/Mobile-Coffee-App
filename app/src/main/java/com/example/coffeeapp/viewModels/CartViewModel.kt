@@ -29,6 +29,7 @@ class CartViewModel(application: Application) : AndroidViewModel(application)  {
     private val uid = Firebase.auth.currentUser?.uid
     val orderListState = mutableStateListOf<CoffeeOrder>()
     var cartItems = mutableStateListOf<OrderItem>()
+    val statusList = listOf(OrderStatus.PREPARING.label,OrderStatus.READY.label,OrderStatus.CANCELED.label,OrderStatus.COMPLETED.label)
     private val dbRoom by lazy { CoffeeDatabase.getDatabase(getApplication()) }
     private val coffeeDao: CoffeeDao by lazy { dbRoom.coffeeDao() }
 
@@ -55,24 +56,27 @@ class CartViewModel(application: Application) : AndroidViewModel(application)  {
     val cartItemsCounts: Int
         get() = cartItems.sumOf { it.quantity }
 
-    fun addToCart(item: OrderItem) {
-        val id = db.push().key
-
+    fun addToCart(newItem: OrderItem) {
         viewModelScope.launch(Dispatchers.IO) {
-            // 1. Check if this specific item (same name, size, sugar) already exists in the list
-            val existingItem = cartItems.find { it.id == item.id }
+            // 1. Find by attributes, NOT ID
+            val existingItem = cartItems.find {
+                it.coffeeName == newItem.coffeeName &&
+                        it.size == newItem.size &&
+                        it.sugarLevel == newItem.sugarLevel
+            }
 
             if (existingItem != null) {
-                // 2. If it exists, increase the quantity
-                existingItem.quantity += item.quantity
-                coffeeDao.insertItem(existingItem) // Room updates the existing row
+                // 2. Update existing object
+                existingItem.quantity += newItem.quantity
+                coffeeDao.insertItem(existingItem)
+
+                // 3. DO NOT manually add to cartItems here.
+                // If cartItems is a state-backed list, update the list element or re-fetch.
             } else {
-                // 3. If it's a new coffee, add it to the database
-                item.id = id.toString()
-                coffeeDao.insertItem(item)
+                // 4. Truly new item
+                coffeeDao.insertItem(newItem)
+                cartItems.add(newItem)
             }
-            //update ui
-             cartItems.add(item)
         }
     }
 

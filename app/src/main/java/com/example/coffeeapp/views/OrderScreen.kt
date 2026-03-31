@@ -39,15 +39,14 @@ import com.example.coffeeapp.viewModels.CartViewModel
 fun OrderScreen( cartViewModel: CartViewModel,navController: NavController) {
     val context = LocalContext.current
     var selectedTabIndex by  remember { mutableIntStateOf(0) }
-    //val tabs = listOf("Preparing", "Ready","Canceled")
-    val tabs = listOf(OrderStatus.PREPARING.label,OrderStatus.READY.label,OrderStatus.CANCELED.label)
+    val tabs = cartViewModel.statusList
     val orders = cartViewModel.orderListState
     LaunchedEffect(selectedTabIndex) {
         cartViewModel.filterOrders(tabs[selectedTabIndex])
     }
     var showCompleteQrToStaff by remember { mutableStateOf(false) }
 
-    Column(modifier = Modifier.fillMaxSize()) {
+    Column(modifier = Modifier.fillMaxSize().background(Color.White)) {
         Column(modifier = Modifier.fillMaxWidth(),
             horizontalAlignment = Alignment.CenterHorizontally) {
             Text(

@@ -55,9 +55,10 @@ fun ProfileScreen(authViewModel: AuthViewModel, navController: NavController) {
     var showChangePasswordDialog by remember { mutableStateOf(false) }
     var showChangeNameDialog by remember { mutableStateOf(false) }
 
-    Column(modifier = Modifier.fillMaxSize(),
+    Column(modifier = Modifier.fillMaxSize().background(Color.White),
         horizontalAlignment = Alignment.CenterHorizontally) {
-        Text(text = "Profile", fontSize = 24.sp, fontWeight = FontWeight.Bold)
+
+        Text(text = "Profile", fontSize = 24.sp, fontWeight = FontWeight.Bold, color = Color.Black)
         Spacer(modifier = Modifier.height(8.dp))
         Divider()
         Spacer(modifier = Modifier.height(16.dp))
@@ -154,10 +155,11 @@ fun ProfileScreen(authViewModel: AuthViewModel, navController: NavController) {
 @Composable
 fun ProfileInfoCard(label: String, onClick: () -> Unit = {}) {
     Card(
+        elevation = CardDefaults.cardElevation(defaultElevation = 2.dp),
         modifier = Modifier
             .fillMaxWidth()
             .padding(vertical = 8.dp),
-        elevation = CardDefaults.cardElevation(defaultElevation = 2.dp),
+        colors = CardDefaults.cardColors(containerColor = Color.LightGray),
         onClick = onClick
     ) {
         Row(modifier = Modifier.padding(16.dp),

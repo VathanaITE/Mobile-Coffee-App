@@ -1,6 +1,7 @@
 package com.example.coffeeapp.views
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -41,11 +42,11 @@ fun LoginScreen(authViewModel: AuthViewModel,navController: NavController) {
     var password by remember { mutableStateOf("") }
 
     Column(
-        modifier = Modifier.fillMaxSize(),
+        modifier = Modifier.fillMaxSize().background(Color.White),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         // 1. Top Image section
-        Box(modifier = Modifier.fillMaxWidth().height(400.dp)) {
+        Box(modifier = Modifier.fillMaxWidth().height(350.dp)) {
             Image(
                 painter = painterResource(id = R.drawable.bannerlogo),
                 contentDescription = null,

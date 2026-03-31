@@ -60,20 +60,21 @@ fun CoffeeDetail(coffeeId: String, viewModel: CoffeeViewModel,navController: Nav
         Box(
             modifier = Modifier.fillMaxSize()
         ) {
-            Column (modifier = Modifier.padding(start = 16.dp,end = 16.dp)){
-                Box(modifier = Modifier.fillMaxWidth()) {
+            Column (modifier = Modifier.padding(start = 16.dp,end = 16.dp).background(Color.White)){
+                Box(modifier = Modifier.fillMaxWidth().background(Color.White)) {
                     Surface(
                         modifier = Modifier
                             .align(Alignment.TopCenter)
                             .fillMaxWidth(),
                         color = Color.White
                     ) {
-                        Row(modifier = Modifier.fillMaxWidth()) {
+                        Row(modifier = Modifier.fillMaxWidth().background(Color.White)) {
                             IconButton(onClick = { navController.popBackStack() }) {
                                 Icon(
                                     imageVector = Icons.Default.ArrowBack,
                                     contentDescription = "Back",
-                                    modifier = Modifier.size(28.dp)
+                                    modifier = Modifier.size(28.dp),
+                                    tint = Color.Black
                                 )
                             }
                         }
@@ -83,6 +84,7 @@ fun CoffeeDetail(coffeeId: String, viewModel: CoffeeViewModel,navController: Nav
                 Column(
                     modifier = Modifier
                         .fillMaxSize()
+                        .background(Color.White)
                         .verticalScroll(rememberScrollState())
                         .padding(bottom = 120.dp)
                 ) {
@@ -93,7 +95,7 @@ fun CoffeeDetail(coffeeId: String, viewModel: CoffeeViewModel,navController: Nav
                         contentDescription = coffee.name,
                         modifier = Modifier
                             .fillMaxWidth()
-                            .height(270.dp)
+                            .height(250.dp)
                             .clip(RoundedCornerShape(16.dp)),
                         contentScale = ContentScale.Crop
                     )
@@ -104,19 +106,20 @@ fun CoffeeDetail(coffeeId: String, viewModel: CoffeeViewModel,navController: Nav
                     Text(
                         coffee.name,
                         style = MaterialTheme.typography.headlineMedium,
-                        fontWeight = FontWeight.Bold
+                        fontWeight = FontWeight.Bold,
+                        color = Color.Black
                     )
-                    Text(coffee.category, color = Color.Gray)
+                    Text(coffee.category, color = Color.DarkGray)
 
 
-                    Spacer(modifier = Modifier.height(24.dp))
+                    Spacer(modifier = Modifier.height(16.dp))
 
                     // 2. Size Selector
-                    Text("Size", fontWeight = FontWeight.Bold)
+                    Text("Size", fontWeight = FontWeight.Bold,color = Color.Black)
                     Row(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .padding(top = 12.dp),
+                            .padding(top = 8.dp),
                         horizontalArrangement = Arrangement.spacedBy(12.dp)
                     ) {
                         listOf("Small", "Medium", "Large").forEach { size ->
@@ -130,7 +133,7 @@ fun CoffeeDetail(coffeeId: String, viewModel: CoffeeViewModel,navController: Nav
 
                     //3. sugar level
                     Spacer(modifier = Modifier.height(16.dp))
-                    Text("Sugar Level %", fontWeight = FontWeight.Bold)
+                    Text("Sugar Level %", fontWeight = FontWeight.Bold,color = Color.Black)
                     Row(
                         modifier = Modifier
                             .fillMaxWidth()
@@ -151,11 +154,12 @@ fun CoffeeDetail(coffeeId: String, viewModel: CoffeeViewModel,navController: Nav
 
                     //4.quantity
                     Spacer(modifier = Modifier.height(16.dp))
-                    Text("Quantity", fontWeight = FontWeight.Bold)
+                    Text("Quantity", fontWeight = FontWeight.Bold,color = Color.Black)
                     Row(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .padding(top = 8.dp),
+                            .padding(top = 8.dp)
+                            .background(Color.White),
                         horizontalArrangement = Arrangement.spacedBy(8.dp),
                         verticalAlignment = Alignment.CenterVertically
                     ) {
@@ -163,13 +167,15 @@ fun CoffeeDetail(coffeeId: String, viewModel: CoffeeViewModel,navController: Nav
                             if (quantity > 1) {
                                 quantity--
                             }
-                        }) {
+                        },
+                            modifier = Modifier.background(Color.White)) {
                             Text(text = "-", color = Color.Red, fontSize = 28.sp)
                         }
                         Text(text = quantity.toString(), color = Color.Black)
                         IconButton(onClick = {
                             quantity++
-                        }) {
+                        },
+                            modifier = Modifier.background(Color.White)) {
                             Text(text = "+", color = Color.Green, fontSize = 28.sp)
                         }
                     }
@@ -179,7 +185,8 @@ fun CoffeeDetail(coffeeId: String, viewModel: CoffeeViewModel,navController: Nav
                     Text(
                         "Description",
                         fontWeight = FontWeight.Bold,
-                        style = MaterialTheme.typography.titleMedium
+                        style = MaterialTheme.typography.titleMedium,
+                        color = Color.White
                     )
                     Text(
                         text = coffee.description,
@@ -192,7 +199,7 @@ fun CoffeeDetail(coffeeId: String, viewModel: CoffeeViewModel,navController: Nav
             Surface(
                 modifier = Modifier
                     .align(Alignment.BottomCenter) // Keeps it stuck to the bottom
-                    .fillMaxWidth(),
+                    .fillMaxWidth().background(Color.White),
                 shadowElevation = 2.dp,
                 color = Color.White
             ) {

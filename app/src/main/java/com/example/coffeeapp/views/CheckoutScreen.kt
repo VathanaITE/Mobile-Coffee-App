@@ -57,7 +57,7 @@ fun CheckoutScreen(cartViewModel: CartViewModel, navController: NavController) {
     val paymentOptions = listOf( "ABA/KHQR")
 
     Column(modifier = Modifier
-        .fillMaxSize()
+        .fillMaxSize().background(Color.White)
         .padding(start = 16.dp, end = 16.dp, top = 0.dp, bottom = 24.dp)) {
 
         IconButton(onClick ={ navController.popBackStack()}) {

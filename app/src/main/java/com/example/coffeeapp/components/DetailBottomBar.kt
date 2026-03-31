@@ -1,6 +1,7 @@
 package com.example.coffeeapp.components
 
 import android.widget.Toast
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -32,7 +33,7 @@ fun DetailBottomBar(price: Double, quantity: Int, cartViewModel: CartViewModel,
                     coffee: Coffee, selectedSize: String, sugarLevel: Int) {
     val context = LocalContext.current
     val total = price*quantity
-    Surface(shadowElevation = 16.dp) {
+    Surface(shadowElevation = 16.dp, modifier = Modifier.background(Color.White)) {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
@@ -56,6 +57,7 @@ fun DetailBottomBar(price: Double, quantity: Int, cartViewModel: CartViewModel,
                 colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFC67C4E)),
                 onClick = {
                     val orderItem = OrderItem(
+                        id = coffee.id,
                         coffeeImage = coffee.image,
                         coffeeName = coffee.name,
                         size =selectedSize ,
@@ -68,48 +70,8 @@ fun DetailBottomBar(price: Double, quantity: Int, cartViewModel: CartViewModel,
 
                 },
             ) {
-                Text("Add To Cart", fontSize = 18.sp)
+                Text("Add To Cart", fontSize = 18.sp,color = Color.White)
             }
         }
     }
 }
-
-
-
-
-
-//fun DetailBottomBar(price: Double,quantity: Int,cartViewModel: CartViewModel) {
-//    val context = LocalContext.current
-//    val total = price*quantity
-//    Surface(shadowElevation = 8.dp) {
-//        Row(
-//            modifier = Modifier
-//                .fillMaxWidth()
-//                .padding(24.dp),
-//            verticalAlignment = Alignment.CenterVertically,
-//            horizontalArrangement = Arrangement.SpaceBetween
-//        ) {
-//            Column {
-//                Text("Price", color = Color.Gray)
-//                Text(
-//                    "$${String.format("%.2f", total)}",
-//                    color = Color(0xFF2E7D32),
-//                    style = MaterialTheme.typography.headlineSmall,
-//                    fontWeight = FontWeight.Bold
-//                )
-//            }
-//
-//            Button(
-//                modifier = Modifier.height(56.dp).width(200.dp),
-//                shape = RoundedCornerShape(16.dp),
-//                colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFC67C4E)),
-//                onClick = {
-//                    //cartViewModel.addToCart()
-//                    Toast.makeText(context,"Added to Cart",Toast.LENGTH_SHORT).show()
-//                },
-//            ) {
-//                Text("Add To Cart", fontSize = 18.sp)
-//            }
-//        }
-//    }
-//}

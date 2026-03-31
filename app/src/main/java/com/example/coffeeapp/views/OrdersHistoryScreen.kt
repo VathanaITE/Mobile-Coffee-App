@@ -1,5 +1,6 @@
 package com.example.coffeeapp.views
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -35,7 +36,7 @@ import com.example.coffeeapp.viewModels.CartViewModel
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun OrdersHistoryScreen(navController: NavController ,cartViewModel: CartViewModel){
-    Column(modifier = Modifier.fillMaxSize()) {
+    Column(modifier = Modifier.fillMaxSize().background(Color.White)) {
         CenterAlignedTopAppBar(
             title = {
                 Text(

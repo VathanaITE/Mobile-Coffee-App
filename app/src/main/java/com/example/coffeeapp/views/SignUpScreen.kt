@@ -1,5 +1,6 @@
 package com.example.coffeeapp.views
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
@@ -43,7 +44,6 @@ import com.example.coffeeapp.viewModels.AuthViewModel
 @Composable
 fun SignUpScreen(authViewModel: AuthViewModel = viewModel(),navController: NavController) {
 
-
     var fullName by remember { mutableStateOf("") }
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
@@ -52,6 +52,7 @@ fun SignUpScreen(authViewModel: AuthViewModel = viewModel(),navController: NavCo
     Column(
         modifier = Modifier
             .fillMaxSize()
+            .background(Color.White)
             .padding(16.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
@@ -62,7 +63,8 @@ fun SignUpScreen(authViewModel: AuthViewModel = viewModel(),navController: NavCo
                 Icon(
                     imageVector = Icons.Default.ArrowBack,
                     contentDescription = "Back",
-                    modifier = Modifier.size(24.dp)
+                    modifier = Modifier.size(24.dp),
+                    tint = Color.Black
                 )
             }
         }

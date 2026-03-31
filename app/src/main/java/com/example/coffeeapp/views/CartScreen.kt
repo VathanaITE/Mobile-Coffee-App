@@ -1,6 +1,7 @@
 package com.example.coffeeapp.views
 
 import android.R
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -40,7 +41,7 @@ import com.example.coffeeapp.components.CartItem
 
 @Composable
 fun CartScreen(cartViewModel: CartViewModel,navController: NavController) {
-    Column(modifier = Modifier.fillMaxSize(),
+    Column(modifier = Modifier.fillMaxSize().background(Color.White),
         horizontalAlignment = Alignment.CenterHorizontally) {
         Text(
             text = "My Cart",
