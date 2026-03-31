@@ -122,11 +122,12 @@ fun CoffeeDetail(coffeeId: String, viewModel: CoffeeViewModel,navController: Nav
                             .padding(top = 8.dp),
                         horizontalArrangement = Arrangement.spacedBy(12.dp)
                     ) {
-                        listOf("Small", "Medium", "Large").forEach { size ->
+                        val coffeeSize = coffee.sizes.keys // maybe not good at this point
+                        coffeeSize.reversed().forEach { string ->
                             SizeButton(
-                                label = size.first().toString(), // Shows S, M, or L
-                                isSelected = selectedSize == size,
-                                onClick = { selectedSize = size }
+                                label = string.first().toString(), // Shows S, M, or L
+                                isSelected = selectedSize == string,
+                                onClick = { selectedSize = string }
                             )
                         }
                     }

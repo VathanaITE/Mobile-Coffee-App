@@ -29,7 +29,7 @@ class CartViewModel(application: Application) : AndroidViewModel(application)  {
     private val uid = Firebase.auth.currentUser?.uid
     val orderListState = mutableStateListOf<CoffeeOrder>()
     var cartItems = mutableStateListOf<OrderItem>()
-    val statusList = listOf(OrderStatus.PREPARING.label,OrderStatus.READY.label,OrderStatus.CANCELED.label,OrderStatus.COMPLETED.label)
+    val statusList = listOf(OrderStatus.PREPARING.label,OrderStatus.READY.label,OrderStatus.CANCELED.label)
     private val dbRoom by lazy { CoffeeDatabase.getDatabase(getApplication()) }
     private val coffeeDao: CoffeeDao by lazy { dbRoom.coffeeDao() }
 
