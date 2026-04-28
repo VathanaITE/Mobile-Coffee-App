@@ -44,8 +44,8 @@ fun DetailBottomBar(price: Double, quantity: Int, cartViewModel: CartViewModel,
             Column {
                 Text("Price", color = Color.Gray)
                 Text(
-                    "$${String.format("%.2f", total)}",
-                    color = Color(0xFF2E7D32),
+                    if (selectedSize.isEmpty()) "Select Size" else "$${String.format("%.2f", total)}",
+                    color = if (selectedSize.isEmpty()) Color.Red else Color(0xFF2E7D32),
                     style = MaterialTheme.typography.headlineSmall,
                     fontWeight = FontWeight.Bold
                 )
@@ -56,18 +56,21 @@ fun DetailBottomBar(price: Double, quantity: Int, cartViewModel: CartViewModel,
                 shape = RoundedCornerShape(16.dp),
                 colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFC67C4E)),
                 onClick = {
-                    val orderItem = OrderItem(
-                        id = coffee.id?:"",
-                        coffeeImage = coffee.image,
-                        coffeeName = coffee.name,
-                        size =selectedSize ,
-                        sugarLevel = sugarLevel,
-                        quantity = quantity,
-                        priceAtTime = price
-                    )
-                    cartViewModel.addToCart(orderItem)
-                    Toast.makeText(context,"Added to Cart",Toast.LENGTH_SHORT).show()
-
+                    if (selectedSize.isEmpty()) {
+                        Toast.makeText(context, "Please select a size first", Toast.LENGTH_SHORT).show()
+                    } else {
+                        val orderItem = OrderItem(
+                            id = coffee.id ?: "",
+                            coffeeImage = coffee.image,
+                            coffeeName = coffee.name,
+                            size = selectedSize,
+                            sugarLevel = sugarLevel,
+                            quantity = quantity,
+                            priceAtTime = price
+                        )
+                        cartViewModel.addToCart(orderItem)
+                        Toast.makeText(context, "Added to Cart", Toast.LENGTH_SHORT).show()
+                    }
                 },
             ) {
                 Text("Add To Cart", fontSize = 18.sp,color = Color.White)

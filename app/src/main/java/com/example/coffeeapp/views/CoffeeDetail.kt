@@ -50,7 +50,7 @@ import com.example.coffeeapp.viewModels.CoffeeViewModel
 fun CoffeeDetail(coffeeId: String, viewModel: CoffeeViewModel,navController: NavController,cartViewModel: CartViewModel){
     val coffee = viewModel.coffeeList.find { it.id == coffeeId}
     // State to track selected size
-    var selectedSize by remember { mutableStateOf("Small") }
+    var selectedSize by remember { mutableStateOf("") }
     var sugarLevel by remember { mutableStateOf(100) }
     // Derived price based on selection
     val currentPrice = coffee?.sizes[selectedSize] ?: 0.0
@@ -123,7 +123,7 @@ fun CoffeeDetail(coffeeId: String, viewModel: CoffeeViewModel,navController: Nav
                         horizontalArrangement = Arrangement.spacedBy(12.dp)
                     ) {
                         val coffeeSize = coffee.sizes.keys // maybe not good at this point
-                        coffeeSize.reversed().forEach { string ->
+                        coffeeSize.forEach { string ->
                             SizeButton(
                                 label = string.first().toString(), // Shows S, M, or L
                                 isSelected = selectedSize == string,
