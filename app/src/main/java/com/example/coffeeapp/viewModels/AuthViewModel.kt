@@ -17,7 +17,13 @@ class AuthViewModel: ViewModel() {
     var isLoading by mutableStateOf(false)
   //  private val firestore = Firebase.firestore
     // State to hold the username
-  val userName = mutableStateOf("...")
+  val userName = mutableStateOf("")
+    init {
+        val currentUser = auth.currentUser
+        if (currentUser != null) {
+            fetchUserData()
+        }
+    }
 
     fun fetchUserData() {
         val uid = auth.currentUser?.uid

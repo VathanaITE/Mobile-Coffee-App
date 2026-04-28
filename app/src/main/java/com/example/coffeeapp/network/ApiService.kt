@@ -4,8 +4,8 @@ import retrofit2.http.GET
 
 interface ApiService {
     @GET("menu.json")
-    suspend fun getCoffeeList(): List<Coffee>
+    suspend fun getCoffeeList(): List<Coffee>?
 
-    @GET("categories.json")
-    suspend fun getCategories(): Map<String,Category>
+    @GET("category.json")
+    suspend fun getCategories(): List<Category>?
 }

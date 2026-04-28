@@ -57,7 +57,7 @@ fun DetailBottomBar(price: Double, quantity: Int, cartViewModel: CartViewModel,
                 colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFC67C4E)),
                 onClick = {
                     val orderItem = OrderItem(
-                        id = coffee.id,
+                        id = coffee.id?:"",
                         coffeeImage = coffee.image,
                         coffeeName = coffee.name,
                         size =selectedSize ,

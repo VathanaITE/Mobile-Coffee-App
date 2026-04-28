@@ -1,6 +1,5 @@
 package com.example.coffeeapp.views
 
-import android.R
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box

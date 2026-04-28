@@ -75,8 +75,8 @@ class CartViewModel(application: Application) : AndroidViewModel(application)  {
             } else {
                 // 4. Truly new item
                 coffeeDao.insertItem(newItem)
-                cartItems.add(newItem)
             }
+            cartItems.add(newItem)
         }
     }
 
