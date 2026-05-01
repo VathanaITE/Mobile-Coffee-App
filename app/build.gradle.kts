@@ -85,6 +85,7 @@ dependencies {
     implementation(libs.androidx.compose.animation.core.lint)
     implementation(libs.firebase.messaging)
     testImplementation(libs.junit)
+    testImplementation(libs.kotlinx.coroutines.test)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
     androidTestImplementation(platform(libs.androidx.compose.bom))

@@ -42,12 +42,13 @@ import com.example.coffeeapp.AppUtil
 import com.example.coffeeapp.components.ChangeName
 import com.example.coffeeapp.components.ChangePasswordDialog
 import com.example.coffeeapp.viewModels.AuthViewModel
+import com.example.coffeeapp.viewModels.CartViewModel
 import com.google.firebase.Firebase
 import com.google.firebase.auth.auth
 import java.sql.Driver
 
 @Composable
-fun ProfileScreen(authViewModel: AuthViewModel, navController: NavController) {
+fun ProfileScreen(authViewModel: AuthViewModel,cartViewModel: CartViewModel, navController: NavController) {
     val context = LocalContext.current
     // Observe the username from your ViewModel
     val userName by authViewModel.userName
@@ -138,6 +139,7 @@ fun ProfileScreen(authViewModel: AuthViewModel, navController: NavController) {
             // Logout Button
             Button(
                 onClick = {
+                    cartViewModel.clearCartData()
                     Firebase.auth.signOut()
                     navController.navigate("login") {
                         popUpTo("home") { inclusive = true }

@@ -76,7 +76,7 @@ fun MainScreen(){
                 OrderScreen(cartViewModel,navController)
             }
             composable("profile") {
-                ProfileScreen(authViewModel,navController)
+                ProfileScreen(authViewModel,cartViewModel,navController)
             }
             composable("checkout") {
                 CheckoutScreen(cartViewModel,navController)

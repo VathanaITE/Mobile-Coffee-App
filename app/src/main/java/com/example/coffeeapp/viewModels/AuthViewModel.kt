@@ -75,9 +75,10 @@ class AuthViewModel: ViewModel() {
     }
 
     fun login(email: String,password: String,onResult: (Boolean, String) -> Unit){
+        isLoading = true
         auth.signInWithEmailAndPassword(email, password)
             .addOnCompleteListener {
-                isLoading = true
+                isLoading = false
                 if(it.isSuccessful){
                     onResult(true,"Login successful")
                 } else {
@@ -85,13 +86,13 @@ class AuthViewModel: ViewModel() {
                     isLoading=false
                 }
             }
-        isLoading = false
     }
 
     fun signup(name:String,email:String,password:String,onResult:(Boolean, String)->Unit) {
+        isLoading = true
         auth.createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener {
-                isLoading = true
+                isLoading = false
                 if(it.isSuccessful){
                     val userId: String = it.result.user?.uid?: ""
                     val userModel = UserModel(uid = userId,name = name ,email=email, password = password)
@@ -110,7 +111,6 @@ class AuthViewModel: ViewModel() {
                     onResult(false, it.exception?.localizedMessage.toString())
                 }
             }
-        isLoading = false
     }
 
 }

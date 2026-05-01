@@ -26,7 +26,7 @@ import java.util.Locale
 
 class CartViewModel(application: Application) : AndroidViewModel(application)  {
     private val db = FirebaseDatabase.getInstance().getReference("orders")
-    private val uid = Firebase.auth.currentUser?.uid
+    private val uid :String? get() = Firebase.auth.currentUser?.uid
     val orderListState = mutableStateListOf<CoffeeOrder>()
     var cartItems = mutableStateListOf<OrderItem>()
     val statusList = listOf(OrderStatus.PREPARING.label,OrderStatus.READY.label,OrderStatus.CANCELED.label)
@@ -55,6 +55,28 @@ class CartViewModel(application: Application) : AndroidViewModel(application)  {
 
     val cartItemsCounts: Int
         get() = cartItems.sumOf { it.quantity }
+
+
+//    fun addToCart(newItem: OrderItem) {
+//        viewModelScope.launch(Dispatchers.IO) {
+//            val existingItem = cartItems.find {
+//                it.coffeeName == newItem.coffeeName &&
+//                        it.size == newItem.size &&
+//                        it.sugarLevel == newItem.sugarLevel
+//            }
+//
+//            if (existingItem != null) {
+//                existingItem.quantity += newItem.quantity
+//                coffeeDao.insertItem(existingItem)
+//                // DO NOT call cartItems.add(newItem) here
+//            } else {
+//                coffeeDao.insertItem(newItem)
+//                withContext(Dispatchers.Main) {
+//                    cartItems.add(newItem)
+//                }
+//            }
+//        }
+//    }
 
     fun addToCart(newItem: OrderItem) {
         viewModelScope.launch(Dispatchers.IO) {
@@ -108,6 +130,14 @@ class CartViewModel(application: Application) : AndroidViewModel(application)  {
                 // Add as a new item if it's not in the cart
                 cartItems.add(oldItem)
             }
+        }
+    }
+
+    fun clearCartData() {
+        cartItems.clear()
+        orderListState.clear()
+        viewModelScope.launch {
+            coffeeDao.clearCart()
         }
     }
 
