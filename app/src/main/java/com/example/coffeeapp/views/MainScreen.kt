@@ -4,11 +4,17 @@ import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.CenterAlignedTopAppBar
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
@@ -24,6 +30,7 @@ import com.google.firebase.Firebase
 import com.google.firebase.auth.auth
 
 
+@OptIn(ExperimentalMaterial3Api::class)
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun MainScreen(){
@@ -41,6 +48,26 @@ fun MainScreen(){
     var paddingValues: PaddingValues
 
     Scaffold(
+        topBar = {
+            if (currentRoute !in noNavRoute && currentRoute != "home") {
+                CenterAlignedTopAppBar(
+                    title = {
+                        Text(
+                            text = when(currentRoute) {
+                                "cart" -> "My Cart"
+                                "order" -> "My Orders"
+                                "profile" -> "Profile"
+                                else -> ""
+                            },
+                            fontWeight = FontWeight.Bold
+                        )
+                    },
+                    colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
+                        containerColor = Color.White
+                    )
+                )
+            }
+        },
         bottomBar = {
             if (currentRoute !in noNavRoute){
                 BottomNav(navController,cartViewModel)

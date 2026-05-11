@@ -4,10 +4,10 @@
     <selectionStates>
       <SelectionState runConfigName="app">
         <option name="selectionMode" value="DROPDOWN" />
-        <DropdownSelection timestamp="2026-05-01T06:56:13.495697Z">
+        <DropdownSelection timestamp="2026-05-11T08:15:22.868811700Z">
           <Target type="DEFAULT_BOOT">
             <handle>
-              <DeviceId pluginId="LocalEmulator" identifier="path=C:\Users\vatha\.android\avd\Resizable_Experimental.avd" />
+              <DeviceId pluginId="LocalEmulator" identifier="path=C:\Users\vatha\.android\avd\GalaxyS26.avd" />
             </handle>
           </Target>
         </DropdownSelection>

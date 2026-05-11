@@ -58,9 +58,6 @@ fun ProfileScreen(authViewModel: AuthViewModel,cartViewModel: CartViewModel, nav
 
     Column(modifier = Modifier.fillMaxSize().background(Color.White),
         horizontalAlignment = Alignment.CenterHorizontally) {
-
-        Text(text = "Profile", fontSize = 24.sp, fontWeight = FontWeight.Bold, color = Color.Black)
-        Spacer(modifier = Modifier.height(8.dp))
         Divider()
         Spacer(modifier = Modifier.height(16.dp))
         Column(
@@ -157,11 +154,11 @@ fun ProfileScreen(authViewModel: AuthViewModel,cartViewModel: CartViewModel, nav
 @Composable
 fun ProfileInfoCard(label: String, onClick: () -> Unit = {}) {
     Card(
-        elevation = CardDefaults.cardElevation(defaultElevation = 2.dp),
+        elevation = CardDefaults.cardElevation(defaultElevation = 10.dp),
         modifier = Modifier
             .fillMaxWidth()
             .padding(vertical = 8.dp),
-        colors = CardDefaults.cardColors(containerColor = Color.LightGray),
+        colors = CardDefaults.cardColors(containerColor = Color.White),
         onClick = onClick
     ) {
         Row(modifier = Modifier.padding(16.dp),

@@ -31,6 +31,7 @@ fun ChangeName(
         title = { Text(text = "Edit Name") },
         text = {
             Column {
+                Spacer(Modifier.height(8.dp))
                 OutlinedTextField(
                     value = newName,
                     onValueChange = { newName = it },

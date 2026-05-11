@@ -2,7 +2,10 @@ package com.example.coffeeapp.viewModels
 
 import android.app.Application
 import android.util.Log
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateListOf
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.coffeeapp.models.CoffeeOrder
@@ -29,12 +32,34 @@ class CartViewModel(application: Application) : AndroidViewModel(application)  {
     private val uid :String? get() = Firebase.auth.currentUser?.uid
     val orderListState = mutableStateListOf<CoffeeOrder>()
     var cartItems = mutableStateListOf<OrderItem>()
+    private var totalOrdersCountState by mutableStateOf(0)
     val statusList = listOf(OrderStatus.PREPARING.label,OrderStatus.READY.label,OrderStatus.CANCELED.label)
     private val dbRoom by lazy { CoffeeDatabase.getDatabase(getApplication()) }
     private val coffeeDao: CoffeeDao by lazy { dbRoom.coffeeDao() }
 
     init {
         loadItemOrdersRoomDb()
+        listenToTotalOrderCount()
+    }
+
+    private fun listenToTotalOrderCount() {
+        val currentUid = uid ?: return
+        db.orderByChild("userId").equalTo(currentUid)
+            .addValueEventListener(object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    var activeOrderCounts = 0
+                    for(orderSnapshot in snapshot.children){
+                        val status = orderSnapshot.child("status").getValue(String::class.java)
+                        if (status != OrderStatus.CANCELED.label && status != OrderStatus.COMPLETED.label ){
+                            activeOrderCounts++
+                        }
+                    }
+                    totalOrdersCountState = activeOrderCounts
+                }
+                override fun onCancelled(error: DatabaseError) {
+                    Log.e("Firebase", "Count fetch failed: ${error.message}")
+                }
+            })
     }
 
     private fun loadItemOrdersRoomDb() {
@@ -55,28 +80,7 @@ class CartViewModel(application: Application) : AndroidViewModel(application)  {
 
     val cartItemsCounts: Int
         get() = cartItems.sumOf { it.quantity }
-
-
-//    fun addToCart(newItem: OrderItem) {
-//        viewModelScope.launch(Dispatchers.IO) {
-//            val existingItem = cartItems.find {
-//                it.coffeeName == newItem.coffeeName &&
-//                        it.size == newItem.size &&
-//                        it.sugarLevel == newItem.sugarLevel
-//            }
-//
-//            if (existingItem != null) {
-//                existingItem.quantity += newItem.quantity
-//                coffeeDao.insertItem(existingItem)
-//                // DO NOT call cartItems.add(newItem) here
-//            } else {
-//                coffeeDao.insertItem(newItem)
-//                withContext(Dispatchers.Main) {
-//                    cartItems.add(newItem)
-//                }
-//            }
-//        }
-//    }
+    val getOrderCounts: Int get() = totalOrdersCountState
 
     fun addToCart(newItem: OrderItem) {
         viewModelScope.launch(Dispatchers.IO) {

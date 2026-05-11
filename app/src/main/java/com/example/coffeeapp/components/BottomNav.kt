@@ -34,7 +34,17 @@ fun BottomNav(navController: NavController,cartViewModel: CartViewModel){
                                 Badge(
                                     containerColor = Color.Red,
                                     contentColor = Color.White
-                                ) { Text(cartViewModel.cartItemsCounts.toString()) }
+                                ) {
+                                    Text(cartViewModel.cartItemsCounts.toString())
+                                }
+                            }
+                            if (item.route == "order" && cartViewModel.getOrderCounts > 0){
+                                Badge(
+                                    containerColor = Color.Red,
+                                    contentColor = Color.White
+                                ) {
+                                    Text(cartViewModel.getOrderCounts.toString())
+                                }
                             }
                         }
                     ) {

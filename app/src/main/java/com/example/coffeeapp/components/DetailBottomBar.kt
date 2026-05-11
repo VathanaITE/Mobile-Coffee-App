@@ -60,7 +60,7 @@ fun DetailBottomBar(price: Double, quantity: Int, cartViewModel: CartViewModel,
                         Toast.makeText(context, "Please select a size first", Toast.LENGTH_SHORT).show()
                     } else {
                         val orderItem = OrderItem(
-                            id = coffee.id ?: "",
+                            id = "${coffee.id}_${selectedSize}_${sugarLevel}",
                             coffeeImage = coffee.image,
                             coffeeName = coffee.name,
                             size = selectedSize,

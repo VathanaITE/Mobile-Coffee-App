@@ -42,13 +42,6 @@ import com.example.coffeeapp.components.CartItem
 fun CartScreen(cartViewModel: CartViewModel,navController: NavController) {
     Column(modifier = Modifier.fillMaxSize().background(Color.White),
         horizontalAlignment = Alignment.CenterHorizontally) {
-        Text(
-            text = "My Cart",
-            fontSize = 24.sp,
-            color = Color.Black,
-            fontWeight = FontWeight.Bold,
-            modifier = Modifier.padding(bottom = 16.dp)
-        )
         Divider()
         if (cartViewModel.cartItems.isNotEmpty()){
             Box(modifier = Modifier.fillMaxSize()){
