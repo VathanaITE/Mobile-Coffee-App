@@ -2,10 +2,18 @@ package com.example.coffeeapp.views
 
 import android.os.Build
 import androidx.annotation.RequiresApi
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
@@ -57,11 +65,23 @@ fun MainScreen(){
                                 "cart" -> "My Cart"
                                 "order" -> "My Orders"
                                 "profile" -> "Profile"
+                                "detail/{mealId}" -> "Detail"
                                 else -> ""
                             },
-                            fontWeight = FontWeight.Bold
+                            fontWeight = FontWeight.Bold, color = Color.Black
                         )
                     },
+                    navigationIcon = {
+                            if (currentRoute == "detail/{mealId}"){
+                                IconButton(onClick = { navController.popBackStack() }) {
+                                    Icon(
+                                        imageVector = Icons.Default.ArrowBack,
+                                        contentDescription = "Back",
+                                        tint = Color.Black
+                                    )
+                                }
+                            }
+                        },
                     colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
                         containerColor = Color.White
                     )

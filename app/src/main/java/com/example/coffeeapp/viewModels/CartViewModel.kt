@@ -84,25 +84,30 @@ class CartViewModel(application: Application) : AndroidViewModel(application)  {
 
     fun addToCart(newItem: OrderItem) {
         viewModelScope.launch(Dispatchers.IO) {
-            // 1. Find by attributes, NOT ID
-            val existingItem = cartItems.find {
+            // 1. Find the position (index) of the item if it already exists
+            val index = cartItems.indexOfFirst {
                 it.coffeeName == newItem.coffeeName &&
                         it.size == newItem.size &&
                         it.sugarLevel == newItem.sugarLevel
             }
 
-            if (existingItem != null) {
-                // 2. Update existing object
-                existingItem.quantity += newItem.quantity
-                coffeeDao.insertItem(existingItem)
+            if (index != -1) {
+                // 2. Item EXISTS: Create a COPY with the new total quantity
+                // Using .copy() is important for Compose to detect the change!
+                val updatedItem = cartItems[index].copy(
+                    quantity = cartItems[index].quantity + newItem.quantity
+                )
+                coffeeDao.insertItem(updatedItem)
 
-                // 3. DO NOT manually add to cartItems here.
-                // If cartItems is a state-backed list, update the list element or re-fetch.
+                withContext(Dispatchers.Main) {
+                    cartItems[index] = updatedItem
+                }
             } else {
-                // 4. Truly new item
                 coffeeDao.insertItem(newItem)
+                withContext(Dispatchers.Main) {
+                    cartItems.add(newItem)
+                }
             }
-            cartItems.add(newItem)
         }
     }
 

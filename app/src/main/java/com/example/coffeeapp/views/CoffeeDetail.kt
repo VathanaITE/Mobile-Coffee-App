@@ -19,6 +19,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material3.Divider
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -55,32 +56,11 @@ fun CoffeeDetail(coffeeId: String, viewModel: CoffeeViewModel,navController: Nav
     // Derived price based on selection
     val currentPrice = coffee?.sizes[selectedSize] ?: 0.0
     var quantity by remember { mutableStateOf(1) }
-
     if (coffee!=null){
         Box(
             modifier = Modifier.fillMaxSize()
         ) {
             Column (modifier = Modifier.padding(start = 16.dp,end = 16.dp).background(Color.White)){
-                Box(modifier = Modifier.fillMaxWidth().background(Color.White)) {
-                    Surface(
-                        modifier = Modifier
-                            .align(Alignment.TopCenter)
-                            .fillMaxWidth(),
-                        color = Color.White
-                    ) {
-                        Row(modifier = Modifier.fillMaxWidth().background(Color.White)) {
-                            IconButton(onClick = { navController.popBackStack() }) {
-                                Icon(
-                                    imageVector = Icons.Default.ArrowBack,
-                                    contentDescription = "Back",
-                                    modifier = Modifier.size(28.dp),
-                                    tint = Color.Black
-                                )
-                            }
-                        }
-                    }
-                }
-
                 Column(
                     modifier = Modifier
                         .fillMaxSize()
