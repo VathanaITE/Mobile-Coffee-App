@@ -1,5 +1,6 @@
 package com.example.coffeeapp.components
 
+import android.util.Log
 import androidx.compose.ui.tooling.preview.Preview
 
 import androidx.compose.foundation.Image
@@ -91,7 +92,7 @@ fun CoffeeHeader(userName: String="",greeting:String="",coffeeViewModel: CoffeeV
                     }
                     IconButton(
                         onClick = {
-                            navController.navigate("notification")
+                           // navController.navigate("notification")
                         },
                     ) {
                         Icon(

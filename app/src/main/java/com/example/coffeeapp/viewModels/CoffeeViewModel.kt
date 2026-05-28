@@ -23,14 +23,14 @@ class CoffeeViewModel : ViewModel() {
     var searchQuery by mutableStateOf("")
 
     init {
-        // Enable persistence for offline access and faster startup
-        try {
-            FirebaseDatabase.getInstance().setPersistenceEnabled(true)
-        } catch (e: Exception) {
-            // Persistence must be set before any other usage of FirebaseDatabase
-            Log.d("CoffeeViewModel", "Persistence already enabled or error: ${e.message}")
-        }
-        
+//        // Enable persistence for offline access and faster startup
+//        try {
+//            FirebaseDatabase.getInstance().setPersistenceEnabled(true)
+//        } catch (e: Exception) {
+//            // Persistence must be set before any other usage of FirebaseDatabase
+//            Log.d("CoffeeViewModel", "Persistence already enabled or error: ${e.message}")
+//        }
+
         loadInitialData()
     }
 

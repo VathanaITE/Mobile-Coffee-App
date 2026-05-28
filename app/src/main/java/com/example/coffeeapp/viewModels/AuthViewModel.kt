@@ -1,5 +1,6 @@
 package com.example.coffeeapp.viewModels
 
+import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -36,6 +37,9 @@ class AuthViewModel: ViewModel() {
                     } else {
                         println("No username found ${uid}")
                     }
+                }
+                .addOnFailureListener {
+                    Log.e("Auth","Failed to fetch user data:${it.message}")
                 }
         }
     }
@@ -80,6 +84,7 @@ class AuthViewModel: ViewModel() {
             .addOnCompleteListener {
                 isLoading = false
                 if(it.isSuccessful){
+                    fetchUserData()
                     onResult(true,"Login successful")
                 } else {
                     onResult(false, it.exception?.localizedMessage.toString())

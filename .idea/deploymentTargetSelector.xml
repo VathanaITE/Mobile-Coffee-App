@@ -4,10 +4,10 @@
     <selectionStates>
       <SelectionState runConfigName="app">
         <option name="selectionMode" value="DROPDOWN" />
-        <DropdownSelection timestamp="2026-05-11T08:15:22.868811700Z">
+        <DropdownSelection timestamp="2026-05-28T02:26:43.477048500Z">
           <Target type="DEFAULT_BOOT">
             <handle>
-              <DeviceId pluginId="LocalEmulator" identifier="path=C:\Users\vatha\.android\avd\GalaxyS26.avd" />
+              <DeviceId pluginId="LocalEmulator" identifier="path=C:\Users\vatha\.android\avd\Pixel_9_Pro.avd" />
             </handle>
           </Target>
         </DropdownSelection>
